@@ -1,7 +1,10 @@
 package com.example.roomcomplete
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
 class NoteViewModel(application: Application) : AndroidViewModel(application) {
@@ -14,8 +17,8 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
         notes = repo.notes.asLiveData()
     }
 
-    fun addNote(text: String) = viewModelScope.launch {
-        repo.addNote(Note(text = text))
+    fun addNote(title: String, text: String) = viewModelScope.launch {
+        repo.addNote(Note(title = title, text = text))
     }
 
     fun deleteNote(note: Note) = viewModelScope.launch {
